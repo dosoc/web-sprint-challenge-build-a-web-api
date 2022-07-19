@@ -29,7 +29,7 @@ async function validateProjectID(req, res, next) {
 
 function validateProject(req, res, next) {
     const { name, description } = req.body
-    if (!name || !description) {
+    if (!name || !description ) {
         res.status(400).json({
             message: 'missing field required'
         })
@@ -40,8 +40,19 @@ function validateProject(req, res, next) {
     }
 }
 
+function validatePost(req, res, next) {
+    if (Object.keys(req.body).length < 3) {
+        res.status(400).json({
+            message: 'missing field required'
+        })
+    } else {
+        next()
+    }
+}
+
 module.exports = {
     logger,
     validateProjectID,
     validateProject,
+    validatePost
 }
